@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var QuoteSchema = new Schema({
+  quote-id: Number,
   source: String,
   source-href: String,
   quote: String,
