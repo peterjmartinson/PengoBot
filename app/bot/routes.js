@@ -13,19 +13,21 @@ var express = require('express');
 var app     = express();
 var Quote   = require('./quotes.js');  // not sure this is correct
 
-var getRandomQuote = function () {
-  app.get('get-random-quote', function(req, res) {
+var numQuotes = 70;  // TEMPORARY!!  find number dynamically
+var randomQuoteId = Math.round(numQuotes * Math.random());
 
-    // run the mongoose fetching function!
-    Quote.findById(req.params.quote_id, function(err, quote) {
-      if (err) {
-        res.send(err);
-      }
-
-      res.send(quote);
-    });
+app.get('get-random-quote', function(req, res) {
+  // run the mongoose fetching function!
+  // requester supplies a quote_id
+  Quote.find({ quote_id : randomQuoteId }, function(err, quote) {
+    if (err) {
+      res.send(err);
+    }
+    // QUESTION: who parses result?  Me or Bot?
+    // currently, Bot must parse it!
+    res.send(quote);
   });
-}
+});
 
 // var getQuoteById = function() {}
 
