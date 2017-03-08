@@ -14,7 +14,9 @@ var app     = express();
 var Quote   = require('./quotes.js');  // not sure this is correct
 
 var getRandomQuote = function () {
-  app.get(function(req, res) {
+  app.get('get-random-quote', function(req, res) {
+
+    // run the mongoose fetching function!
     Quote.findById(req.params.quote_id, function(err, quote) {
       if (err) {
         res.send(err);
@@ -25,8 +27,8 @@ var getRandomQuote = function () {
   });
 }
 
-var getQuoteById = function() {}
+// var getQuoteById = function() {}
 
-var getRant = function() {}
+// var getRant = function() {}
 
-var getHelp = function() {}
+// var getHelp = function() {}

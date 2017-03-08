@@ -11,14 +11,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var QuoteSchema = new Schema({
-  quote-id: Number,
-  source: String,
-  source-href: String,
-  quote: String,
-  quote-href: String,
-  subquote: String,
-  subquote-href: String
+var Quote = new Schema({
+  quote-id:      { type: Number },
+  source:        { type: String },
+  source-href:   { type: String },
+  quote:         { type: String },
+  quote-href:    { type: String },
+  subquote:      { type: String },
+  subquote-href: { type: String }
 }
 
 module.exports = mongoose.model('Quote', QuoteSchema);
