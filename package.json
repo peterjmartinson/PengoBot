@@ -1,0 +1,19 @@
+{
+  "name": "pengo-bot",
+  "version": "1.0.0",
+  "description": "Slack slash command that gives good programming advice",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peterjmartinson/PengoBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/peterjmartinson/PengoBot/issues"
+  },
+  "homepage": "https://github.com/peterjmartinson/PengoBot#readme"
+}
