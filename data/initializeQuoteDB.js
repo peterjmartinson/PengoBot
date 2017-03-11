@@ -12,9 +12,12 @@
 */
 var mongoose = require('mongoose');
 var assert   = require('assert');  // node's native unit tester
+var dotenv   = require('dotenv');
+
+var url      = process.env.MONGLAB_URI;
 
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://localhost:27017/pragmaticquotes');
+mongoose.connect(url);
 
 var quoteSchema = mongoose.Schema({
   quote_id:       Number,
