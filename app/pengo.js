@@ -1,15 +1,21 @@
 'use strict';
 
+const route = require('routes.js');
+
 // TODO
 // /pengo - respond with random tip text from database
 // /pengo [ID] - respond with tip text from database specified by ID
 // /pengo rant - resond with special JPEG
 // /pengo help - responds with helpful tips on using /pengo commands
 
+
+// one function to handle all slack commands (at least for now)
+// still need to take aysnchronous into account
+
 const pengo =  {
   handleCommand: function(request, response) {
 
-    // request exists
+    // if /pengo includes following text ([id], rant, help, etc.)
     if (request.body.text) {
 
       // /pengo rant
@@ -40,19 +46,29 @@ const pengo =  {
         }
         return data;
       }
-    } else {
+
+      // /pengo (wrong text)
+      else {
+        let errorMessage = 'Sorry, looks like you typed something in wrong.';
+        let data = {
+          response_type: 'ephemeral', // only visible to user
+          text: errorMessage
+        }
+        return data;
+      }
+    }
+
+    else {
       // /pengo, when response.body.text = ''
       let randomQuote = 'Life is like a box of chocolates';
       let data = {
-        response_type: 'ephemeral', // private message
+        response_type: 'in_channel', // public to channel
         text: randomQuote
       }
       return data;
     }
   }
 }
-
-
 
 
 
