@@ -4,7 +4,7 @@ const express = require('express');
 //const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
-const pengo = require('./pengo');
+//const pengo = require('./pengo');
 
 //global config
 var PORT = process.env.PORT || 3000;
