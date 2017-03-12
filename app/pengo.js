@@ -1,7 +1,5 @@
 'use strict';
 
-const route = require('routes.js');
-
 // TODO
 // /pengo - respond with random tip text from database
 // /pengo [ID] - respond with tip text from database specified by ID
@@ -9,8 +7,7 @@ const route = require('routes.js');
 // /pengo help - responds with helpful tips on using /pengo commands
 
 
-// one function to handle all slack commands (at least for now)
-// still need to take aysnchronous into account
+// one function to handle all slack commands (subject to change if needed)
 
 const pengo =  {
   handleCommand: function(request, response) {
@@ -18,41 +15,65 @@ const pengo =  {
     // if /pengo includes following text ([id], rant, help, etc.)
     if (request.body.text) {
 
-      // /pengo rant
-      if (request.body.text === 'rant') {
-        let rant = 'I hate everything. (rant)';
-        let data = {
-          response_type: 'in_channel', // public to the channel
-          text: rant
-        }
-        return data;
-      }
-      // /pengo [id]
-      else if (request.body.text === '5' ){
+      // /pengo [ID]
+      if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
         let idQuote = 'Specific quote';
         let data = {
           response_type: 'in_channel', // public to the channel
-          text: idQuote
+          attachments: [
+            {
+              text: idQuote,
+              color: 'good'
+            }
+          ]
+        }
+        return data;
+      }
+
+      // /pengo rant or whatever it's going to be called
+      else if (request.body.text === 'rant') {
+        let data = {
+          response_type: 'in_channel', // public to the channel
+          attachments: [
+            {
+              text: 'JPEG goes here',
+              color: 'warning'
+            }
+          ]
         }
         return data;
       }
 
       // /pengo help
       else if (request.body.text === 'help'){
-        let help = 'No one can hear you scream in space';
+        let helpMessage =
+        '"/pengo" get a random quote from the Progmatic Programmer \n' +
+        '"/pengo [ID]" you can specifiy a quote by ID number \n' +
+        '"/pengo rant" a JPEG with a special quote';
+
         let data = {
           response_type: 'in_channel', // public to the channel
-          text: help
+          attachments: [
+            {
+              text: helpMessage,
+              color: '#227722'
+            }
+          ]
         }
         return data;
       }
 
       // /pengo (wrong text)
       else {
-        let errorMessage = 'Sorry, looks like you typed something in wrong.';
+        let errorMessage = 'Sorry, looks like you typed something in wrong. Try /pengo help.';
         let data = {
           response_type: 'ephemeral', // only visible to user
-          text: errorMessage
+          attachments: [
+            {
+              text: errorMessage,
+              color: 'DANGER DANGER'
+            }
+          ]
         }
         return data;
       }
@@ -63,11 +84,21 @@ const pengo =  {
       let randomQuote = 'Life is like a box of chocolates';
       let data = {
         response_type: 'in_channel', // public to channel
-        text: randomQuote
+        attachments: [
+          {
+            text: randomQuote,
+            color: 'good'
+          }
+        ]
       }
       return data;
     }
   }
+}
+
+// tests if string is a number
+function isNumeric(value) {
+    return /^\d+$/.test(value);
 }
 
 
