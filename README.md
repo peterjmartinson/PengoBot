@@ -8,8 +8,8 @@ app/
  +- model/
      `- quote.js        // define the Quote schema
  +- bot/
-     `- bot.js          // bot talks to slack
-     `- routes.js       // bot talks to database
+     `- pengo.js        // bot talks to slack
+     `- getQuotes.js    // bot talks to database
 node_modules/
 package.json
 server.js               // run the bot
