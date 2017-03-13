@@ -1,12 +1,10 @@
 /*
- * Return query for one quote
- *
- *
- * Problem:  How to end execution without Ctrl-c?
+ * Create the Mongoose schema
  *
  * Author: Peter Martinson
  * Date:   March 10, 2017
 */
+var mongoose = require('mongoose');
 
 module.exports = mongoose.Schema({
   quote_id:       Number,

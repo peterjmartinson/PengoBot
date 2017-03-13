@@ -1,57 +1,70 @@
 /*
- * Return query for one quote
+ * Return query for one quote, either by passed ID or at random
  *
- *
- * Problem:  How to end execution without Ctrl-c?
+ *   getQuote.byID(id, function(err, res));
+ *   getQuote.atRandom(function(err, res));
  *
  * Author: Peter Martinson
  * Date:   March 10, 2017
 */
 
-var mongoose = require('mongoose');
-// var assert   = require('assert');  // node's native unit tester
-var quoteSchema    = require('./quoteSchema.js');
 
-var conn = mongoose.connection;
-conn.on('error', console.error.bind(console, 'connection error:'));
-console.log("passed connection");
+var mongoose    = require('mongoose');
+var quoteSchema = require('./quoteSchema.js');
 
 var Quote = mongoose.model('Quote', quoteSchema);
-console.log("passed model");
 
-var getQuoteByID = function(ID) {
-
-  conn.once('open', function() {
-
-    Quote.find({ quote_id : ID }, function(err, quote) {
-      if (err) return console.error(err);
-      console.log(quote);
-      return quote;
+module.exports = {
+  byID :   function(id, callback) {
+    Quote.find({ quote_id : id }, function(err, result) {
+      if (err) { callback(err); }
+      else { callback(null, result); }
     });
-
-  });
-  
-  return 'Houston, we have a problem';
-}
-
-var getRandomQuote = function() {
-
-  var ID = Math.floor(Math.random() * 70);
-
-  conn.once('open', function() {
-
-    Quote.find({ quote_id : ID }, function(err, quote) {
-      if (err) return console.error(err);
-      console.log(quote);
-      return quote;
+  },
+  atRandom : function(callback) {
+    var id = Math.floor(Math.random() * 70);
+    Quote.find({ quote_id : id }, function(err, result) {
+      if (err) { callback(err); }
+      else { callback(null, result, id); }
     });
-
-  });
-  
-  return 'Houston, we have a problem';
+  }
 }
 
 
+
+
+
+
+
+
+
+
+
+// Below is for testing purposes
+
+// var getQuoteByID = function(id, callback) {
+//     Quote.find({ quote_id : id }, function(err, result) {
+//       if (err) { callback(err); }
+//       else { callback(null, result); }
+//     });
+// }
+
+// var getRandomQuote = function(callback) {
+//   var id = Math.floor(Math.random() * 70);
+//     Quote.find({ quote_id : id }, function(err, result) {
+//       if (err) { callback(err); }
+//       else { callback(null, result, id); }
+//     });
+// }
+
+// var test_id = 22;
+// getQuoteByID(test_id, function(err, result) {
+//   console.log("result from callback: " + result);
+// });
+
+// getRandomQuote(function(err, result, id) {
+//   console.log("random quote #" + id + ": " + result);
+// });
 
 
 
