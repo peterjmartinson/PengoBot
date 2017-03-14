@@ -1,7 +1,7 @@
 /*
  * Initialize a quotes database
  *
- * Inserts the first five quotes from
+ * Inserts the quotes from
  *   _The Pragmatic Programmer_
  * into a local or mLab MongoDB database
  *
@@ -17,7 +17,7 @@ var config   = require('./config');
 
 // var url      = process.env.MONGOLAB_URI;  // mLab database
 // var url      = "mongodb://localhost:27017/pragmatic"; // local database
-var url      = "mongodb://" + config.username + ":" + config.password + "@ds123400.mlab.com:23400/quotes"; // local database
+var url      = "mongodb://" + config.username + ":" + config.password + "@ds123400.mlab.com:23400/quotes";
 
 mongoose.Promise = Promise;
 mongoose.connect(url);
@@ -339,10 +339,7 @@ allQuotes.forEach(function(element, index) {
   };
 });
 
-allDocuments.forEach(function(element) {
-  console.log(element);
-});
-
+// Load all documents into the database
 Quote.create(allDocuments, function (err, results) {
   console.log(results);
 });
