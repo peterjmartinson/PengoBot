@@ -6,10 +6,10 @@ Slackbot for Chingu Penguins
 ```
 app/
  +- model/
-     `- quote.js        // define the Quote schema
+     `- quoteSchema.js  // define the Quote schema
  +- bot/
      `- pengo.js        // bot talks to slack
-     `- getQuotes.js    // bot talks to database
+     `- getQuote.js     // bot talks to database
 node_modules/
 package.json
 server.js               // run the bot
