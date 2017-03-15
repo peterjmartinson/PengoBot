@@ -9,6 +9,8 @@
 
 // one function to handle all slack commands (subject to change if needed)
 
+var getQuote = require('./getQuote');
+
 const pengo =  {
   handleCommand: function(request, response) {
 
@@ -17,18 +19,35 @@ const pengo =  {
 
       // /pengo [ID]
       if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
-        let idQuote = 'Specific quote';
-        let data = {
-          response_type: 'in_channel', // public to the channel
-          attachments: [
-            {
-              text: idQuote,
-              color: 'good'
-            }
-          ]
-        }
-        return data;
+        getQuote.byID(request.body.text, function(err, quote) {
+          if (err) console.error(err);
+          let idQuote = quote;
+          let data = {
+            response_type: 'in_channel', // public to the channel
+            attachments: [
+              {
+                text: idQuote.quote,
+                color: 'good'
+              }
+            ]
+          }
+          response.send(data);
+        });
       }
+      // /pengo [ID]
+      // if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
+      //   let idQuote = 'Specific quote';
+      //   let data = {
+      //     response_type: 'in_channel', // public to the channel
+      //     attachments: [
+      //       {
+      //         text: idQuote,
+      //         color: 'good'
+      //       }
+      //     ]
+      //   }
+      //   return data;
+      // }
 
       // /pengo rant or whatever it's going to be called
       else if (request.body.text === 'rant') {
@@ -43,6 +62,19 @@ const pengo =  {
         }
         return data;
       }
+      // /pengo rant or whatever it's going to be called
+      // else if (request.body.text === 'rant') {
+      //   let data = {
+      //     response_type: 'in_channel', // public to the channel
+      //     attachments: [
+      //       {
+      //         text: 'JPEG goes here',
+      //         color: 'warning'
+      //       }
+      //     ]
+      //   }
+      //   return data;
+      // }
 
       // /pengo help
       else if (request.body.text === 'help'){
@@ -81,18 +113,35 @@ const pengo =  {
 
     else {
       // /pengo, when response.body.text = ''
-      let randomQuote = 'Life is like a box of chocolates';
-      let data = {
-        response_type: 'in_channel', // public to channel
-        attachments: [
-          {
-            text: randomQuote,
-            color: 'good'
-          }
-        ]
-      }
-      return data;
+      getQuote.atRandom(function(err, quote) {
+        if (err) console.error(err);
+        let randomQuote = quote;
+        let data = {
+          response_type: 'in_channel', // public to the channel
+          attachments: [
+            {
+              text: randomQuote.quote,
+              color: 'good'
+            }
+          ]
+        }
+        response.send(data);
+      });
     }
+    // else {
+    //   // /pengo, when response.body.text = ''
+    //   let randomQuote = 'Life is like a box of chocolates';
+    //   let data = {
+    //     response_type: 'in_channel', // public to channel
+    //     attachments: [
+    //       {
+    //         text: randomQuote,
+    //         color: 'good'
+    //       }
+    //     ]
+    //   }
+    //   return data;
+    // }
   }
 }
 

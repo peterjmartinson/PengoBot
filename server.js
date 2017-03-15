@@ -6,9 +6,10 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const app = express();
 
-const getQuote = require('./app/getQuote');
+/*____________________________ Local Dependencies ____________________________*/
 
-//const pengo = require('./pengo');
+const getQuote = require('./app/getQuote');
+const pengo = require('./pengo');
 
 var url = process.env.MONGOLAB_URI;
 mongoose.connect(url);
@@ -30,12 +31,14 @@ app.get('/',function(req,res){
 });
 
 // user enters 'path/48' to get quote #48
-app.get('/:quote_id', function(req,res){
-  getQuote.byID(req.params.quote_id, function(err, result) {
-    if (err) console.error(err);
-    res.send("Quote #" + req.params.quote_id + " is:<br>" + result);
-  });
-});
+// app.get('/:quote_id', function(req,res){
+//   getQuote.byID(req.params.quote_id, function(err, result) {
+//     if (err) console.error(err);
+//     res.send("Quote #" + req.params.quote_id + " is:<br>" + result);
+//   });
+// });
+
+app.get('/pengo', pengo.handleCommand(req, res));
 
 app.listen(PORT, function(){
 	console.log('Server is listening to %d port in %s mode',PORT,app.settings.env);
