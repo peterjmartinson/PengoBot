@@ -1,15 +1,15 @@
 'use strict';
 //dependencies
-const express = require('express');
+const express  = require('express');
 //const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
-const app = express();
+const dotenv   = require('dotenv').config();
+const app      = express();
 
 /*____________________________ Local Dependencies ____________________________*/
 
 const getQuote = require('./app/getQuote');
-const pengo = require('./pengo');
+const pengo    = require('./app/pengo');
 
 var url = process.env.MONGOLAB_URI;
 mongoose.connect(url);
