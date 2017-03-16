@@ -1,33 +1,47 @@
 'use strict';
-//dependencies
+
+/* ========================== VENDOR DEPENDENCIES ========================== */
+
 const express  = require('express');
 //const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv   = require('dotenv').config();
 const app      = express();
 
-/*____________________________ Local Dependencies ____________________________*/
 
-const getQuote = require('./app/getQuote');
+/* =========================== LOCAL DEPENDENCIES ========================== */
+
 const pengo    = require('./app/pengo');
 
-var url = process.env.MONGOLAB_URI;
+
+/* ============================= GLOBAL CONFIG ============================= */
+
+const PORT = process.env.PORT || 3000;
+const url = process.env.MONGOLAB_URI;
+
+//app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({ extended: true }));
+
+
+/* ============================ DATABASE CONNECT =========================== */
+
 mongoose.connect(url);
 
-var db = mongoose.connection;
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 	console.log('Db connected successfully');
 });
 
-//global config
-var PORT = process.env.PORT || 3000;
 
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
+/* ================================= ROUTES ================================ */
 
 app.get('/',function(req,res){
   res.send('In root directory');
+});
+
+app.get('/pengo', function(req, res) {
+  pengo.handleCommand(req, res)
 });
 
 // user enters 'path/48' to get quote #48
@@ -38,7 +52,8 @@ app.get('/',function(req,res){
 //   });
 // });
 
-app.get('/pengo', pengo.handleCommand(req, res));
+
+/* ================================ RUN APP ================================ */
 
 app.listen(PORT, function(){
 	console.log('Server is listening to %d port in %s mode',PORT,app.settings.env);

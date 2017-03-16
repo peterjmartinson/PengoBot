@@ -26,7 +26,7 @@ const pengo =  {
             response_type: 'in_channel', // public to the channel
             attachments: [
               {
-                text: idQuote.quote,
+                text: idQuote[0].quote,
                 color: 'good'
               }
             ]
@@ -34,20 +34,6 @@ const pengo =  {
           response.send(data);
         });
       }
-      // /pengo [ID]
-      // if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
-      //   let idQuote = 'Specific quote';
-      //   let data = {
-      //     response_type: 'in_channel', // public to the channel
-      //     attachments: [
-      //       {
-      //         text: idQuote,
-      //         color: 'good'
-      //       }
-      //     ]
-      //   }
-      //   return data;
-      // }
 
       // /pengo rant or whatever it's going to be called
       else if (request.body.text === 'rant') {
@@ -62,19 +48,6 @@ const pengo =  {
         }
         return data;
       }
-      // /pengo rant or whatever it's going to be called
-      // else if (request.body.text === 'rant') {
-      //   let data = {
-      //     response_type: 'in_channel', // public to the channel
-      //     attachments: [
-      //       {
-      //         text: 'JPEG goes here',
-      //         color: 'warning'
-      //       }
-      //     ]
-      //   }
-      //   return data;
-      // }
 
       // /pengo help
       else if (request.body.text === 'help'){
@@ -120,7 +93,7 @@ const pengo =  {
           response_type: 'in_channel', // public to the channel
           attachments: [
             {
-              text: randomQuote.quote,
+              text: randomQuote[0].quote,
               color: 'good'
             }
           ]
@@ -128,20 +101,6 @@ const pengo =  {
         response.send(data);
       });
     }
-    // else {
-    //   // /pengo, when response.body.text = ''
-    //   let randomQuote = 'Life is like a box of chocolates';
-    //   let data = {
-    //     response_type: 'in_channel', // public to channel
-    //     attachments: [
-    //       {
-    //         text: randomQuote,
-    //         color: 'good'
-    //       }
-    //     ]
-    //   }
-    //   return data;
-    // }
   }
 }
 
