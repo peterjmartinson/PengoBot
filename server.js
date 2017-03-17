@@ -39,21 +39,41 @@ db.once('open', function() {
 app.use(express.static('images'); // for fetching rant image
 
 app.get('/',function(req,res){
-  res.send('In root directory');
+  // req.body is for testing.  Dump when Pengo goes live.
+  req.body = 
+  {
+    "token" : "gIkuvaNzQIHg97ATvDxqgjtO",
+    "team_id" : "T0001",
+    "team_domain" : "example",
+    "channel_id" : "C2147483705",
+    "channel_name" : "jones",
+    "user_id" : "U2147483697",
+    "user_name" : "peterjmartinson",
+    "command" : "/pengo",
+    "text" : "",
+    "response_url" : "https://hooks.slack.com/commands/1234/5678"
+  }
+  pengo.handleCommand(req, res);
 });
 
-app.get('/pengo', function(req, res) {
-  pengo.handleCommand(req, res)
+app.get('/:quote_id', function(req,res){
+console.log(req.params.quote_id);
+req.body = 
+{
+  "token" : "gIkuvaNzQIHg97ATvDxqgjtO",
+  "team_id" : "T0001",
+  "team_domain" : "example",
+  "channel_id" : "C2147483705",
+  "channel_name" : "jones",
+  "user_id" : "U2147483697",
+  "user_name" : "peterjmartinson",
+  "command" : "/pengo",
+  "text" : req.params.quote_id,
+  "response_url" : "https://hooks.slack.com/commands/1234/5678"
+}
+  // console.log(req.body);
+  pengo.handleCommand(req, res);
 });
-
-// user enters 'path/48' to get quote #48
-// app.get('/:quote_id', function(req,res){
-//   getQuote.byID(req.params.quote_id, function(err, result) {
-//     if (err) console.error(err);
-//     res.send("Quote #" + req.params.quote_id + " is:<br>" + result);
-//   });
-// });
-
 
 /* ================================ RUN APP ================================ */
 
