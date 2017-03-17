@@ -41,12 +41,12 @@ const pengo =  {
           response_type: 'in_channel', // public to the channel
           attachments: [
             {
-              text: 'JPEG goes here',
+              text: '<img src="pengo.jpg">',
               color: 'warning'
             }
           ]
         }
-        return data;
+        response.send(data);
       }
 
       // /pengo help
@@ -65,7 +65,7 @@ const pengo =  {
             }
           ]
         }
-        return data;
+        response.send(data);
       }
 
       // /pengo (wrong text)
@@ -80,7 +80,7 @@ const pengo =  {
             }
           ]
         }
-        return data;
+        response.send(data);
       }
     }
 

@@ -9,10 +9,10 @@
 */
 
 
-var mongoose    = require('mongoose');
-var quoteSchema = require('../models/quoteSchema.js');
+const mongoose    = require('mongoose');
+const quoteSchema = require('../models/quoteSchema.js');
 
-var Quote = mongoose.model('Quote', quoteSchema);
+const Quote = mongoose.model('Quote', quoteSchema);
 
 module.exports = {
 

@@ -36,6 +36,8 @@ db.once('open', function() {
 
 /* ================================= ROUTES ================================ */
 
+app.use(express.static('images'); // for fetching rant image
+
 app.get('/',function(req,res){
   res.send('In root directory');
 });
