@@ -21,20 +21,20 @@ const pengo =  {
       if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
-          // let responseText = quote[0].quote;
-          let quote = quote[0].quote;
-          let quoteId = quote[0].id;
+
+          let mainQuote = quote[0].quote;
+          let quoteId = quote[0].quote_id;
           let quoteSource = quote[0].source;
           let subQuote = quote[0].subquote;
 
           let data = {
             "response_type": "in_channel", // public to the channel
-            "text": "*" + quote + "*",
+            "text": "*" + mainQuote + "*",
             "attachments": [
               {
-                "text": quote,
+                "text": subQuote,
                 "color": "good",
-                "footer": quoteSource + " | "  + "# " + quoteId
+                "footer": quoteSource + " | "  + "#" + quoteId
               }
             ]
           }
@@ -98,19 +98,19 @@ const pengo =  {
       getQuote.atRandom(function(err, quote) {
         if (err) console.error(err);
         // let responseText = quote[0].quote;
-        let quote = quote[0].quote;
-        let quoteId = quote[0].id;
+        let mainQuote = quote[0].quote;
+        let quoteId = quote[0].quote_id;
         let quoteSource = quote[0].source;
         let subQuote = quote[0].subquote;
 
         let data = {
           "response_type": "in_channel", // public to the channel
-          "text": "*" + quote + "*",
+          "text": "*" + mainQuote + "*",
           "attachments": [
             {
-              "text": quote,
+              "text": subQuote,
               "color": "good",
-              "footer": quoteSource + " | "  + "# " + quoteId
+              "footer": quoteSource + " | "  + "#" + quoteId
             }
           ]
         }
