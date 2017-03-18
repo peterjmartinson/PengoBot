@@ -12,6 +12,7 @@ const app      = express();
 /* =========================== LOCAL DEPENDENCIES ========================== */
 
 const pengo    = require('./app/pengo');
+const getQuote = require('./app/getQuote');
 
 
 /* ============================= GLOBAL CONFIG ============================= */
@@ -36,7 +37,7 @@ db.once('open', function() {
 
 /* ================================= ROUTES ================================ */
 
-app.use(express.static('images'); // for fetching rant image
+app.use(express.static('images')); // for fetching rant image
 
 app.get('/',function(req,res){
   // req.body is for testing.  Dump when Pengo goes live.

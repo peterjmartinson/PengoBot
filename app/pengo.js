@@ -21,12 +21,12 @@ const pengo =  {
       if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
-          let idQuote = quote;
+          let responseText = quote[0].quote;
           let data = {
             response_type: 'in_channel', // public to the channel
             attachments: [
               {
-                text: idQuote[0].quote,
+                text: responseText,
                 color: 'good'
               }
             ]
@@ -37,11 +37,12 @@ const pengo =  {
 
       // /pengo rant or whatever it's going to be called
       else if (request.body.text === 'rant') {
+        let responseText = '<img src="pengo.jpg">';
         let data = {
           response_type: 'in_channel', // public to the channel
           attachments: [
             {
-              text: '<img src="pengo.jpg">',
+              text: responseText,
               color: 'warning'
             }
           ]
@@ -88,12 +89,12 @@ const pengo =  {
       // /pengo, when response.body.text = ''
       getQuote.atRandom(function(err, quote) {
         if (err) console.error(err);
-        let randomQuote = quote;
+        let responseText = quote[0].quote;
         let data = {
           response_type: 'in_channel', // public to the channel
           attachments: [
             {
-              text: randomQuote[0].quote,
+              text: responseText,
               color: 'good'
             }
           ]
