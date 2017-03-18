@@ -47,7 +47,8 @@ const pengo =  {
             }
           ]
         }
-        response.send(data);
+        // response.send(data);
+        response.send(responseText);
       }
 
       // /pengo help
