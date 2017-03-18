@@ -9,25 +9,28 @@
 */
 
 
-var mongoose    = require('mongoose');
-var quoteSchema = require('../models/quoteSchema.js');
+const mongoose    = require('mongoose');
+const quoteSchema = require('../models/quoteSchema.js');
 
-var Quote = mongoose.model('Quote', quoteSchema);
+const Quote = mongoose.model('Quote', quoteSchema);
 
 module.exports = {
 
   byID:     function(id, callback) {
     Quote.find({ quote_id : id }, function(err, result) {
-      if (err) { callback(err); }
-      else     { callback(null, result); }
+      if (err) callback(err);
+      else     callback(null, result);
     });
   },
 
   atRandom: function(callback) {
-    var id = Math.floor(Math.random() * 70);
-    Quote.find({ quote_id : id }, function(err, result) {
-      if (err) { callback(err); }
-      else     { callback(null, result, id); }
+    Quote.count({}, function(err, N) {
+      if (err) callback(err);
+      var id = Math.floor(Math.random() * N);
+      Quote.find({ quote_id : id }, function(err, result) {
+        if (err) callback(err);
+        else     callback(null, result, id);
+      });
     });
   }
 
