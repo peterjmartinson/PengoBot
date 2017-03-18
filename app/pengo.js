@@ -37,7 +37,7 @@ const pengo =  {
 
       // /pengo rant or whatever it's going to be called
       else if (request.body.text === 'rant') {
-        let responseText = '<img src="rant.jpg">';
+        let responseText = '<img src="rant.png">';
         let data = {
           response_type: 'in_channel', // public to the channel
           attachments: [
