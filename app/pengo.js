@@ -21,13 +21,20 @@ const pengo =  {
       if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
-          let responseText = quote[0].quote;
+          // let responseText = quote[0].quote;
+          let quote = quote[0].quote;
+          let quoteId = quote[0].id;
+          let quoteSource = quote[0].source;
+          let subQuote = quote[0].subquote;
+
           let data = {
-            response_type: 'in_channel', // public to the channel
-            attachments: [
+            "response_type": "in_channel", // public to the channel
+            "text": "*" + quote + "*",
+            "attachments": [
               {
-                text: responseText,
-                color: 'good'
+                "text": quote,
+                "color": "good",
+                "footer": quoteSource + " | "  + "# " + quoteId
               }
             ]
           }
@@ -39,11 +46,11 @@ const pengo =  {
       else if (request.body.text === 'rant') {
         let responseText = '<img src="rant.png">';
         let data = {
-          response_type: 'in_channel', // public to the channel
-          attachments: [
+          "response_type": "in_channel", // public to the channel
+          "attachments": [
             {
-              text: responseText,
-              color: 'warning'
+              "text": responseText,
+              "color": "warning"
             }
           ]
         }
@@ -59,11 +66,11 @@ const pengo =  {
         '"/pengo rant" a JPEG with a special quote';
 
         let data = {
-          response_type: 'in_channel', // public to the channel
-          attachments: [
+          "response_type": "in_channel", // public to the channel
+          "attachments": [
             {
-              text: helpMessage,
-              color: '#227722'
+              "text": helpMessage,
+              "color": "#227722"
             }
           ]
         }
@@ -72,13 +79,13 @@ const pengo =  {
 
       // /pengo (wrong text)
       else {
-        let errorMessage = 'Sorry, looks like you typed something in wrong. Try /pengo help.';
+        let errorMessage = "Sorry, looks like you typed something in wrong. Try /pengo help.";
         let data = {
-          response_type: 'ephemeral', // only visible to user
-          attachments: [
+          "response_type": "ephemeral", // only visible to user
+          "attachments": [
             {
-              text: errorMessage,
-              color: 'DANGER DANGER'
+              "text": errorMessage,
+              "color": "DANGER DANGER"
             }
           ]
         }
@@ -90,13 +97,20 @@ const pengo =  {
       // /pengo, when response.body.text = ''
       getQuote.atRandom(function(err, quote) {
         if (err) console.error(err);
-        let responseText = quote[0].quote;
+        // let responseText = quote[0].quote;
+        let quote = quote[0].quote;
+        let quoteId = quote[0].id;
+        let quoteSource = quote[0].source;
+        let subQuote = quote[0].subquote;
+
         let data = {
-          response_type: 'in_channel', // public to the channel
-          attachments: [
+          "response_type": "in_channel", // public to the channel
+          "text": "*" + quote + "*",
+          "attachments": [
             {
-              text: responseText,
-              color: 'good'
+              "text": quote,
+              "color": "good",
+              "footer": quoteSource + " | "  + "# " + quoteId
             }
           ]
         }
