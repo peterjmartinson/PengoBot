@@ -63,7 +63,7 @@ const pengo =  {
         let helpMessage =
         '"/pengo" get a random quote from the Progmatic Programmer \n' +
         '"/pengo [ID]" you can specifiy a quote by ID number \n' +
-        '"/pengo rant" a JPEG with a special quote';
+        '"/pengo rant" get the most important piece of advice';
 
         let data = {
           "response_type": "in_channel", // public to the channel
