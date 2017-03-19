@@ -13,17 +13,6 @@ const getQuote = require('./getQuote');
 
 const pengo =  {
   handleCommand: function(request, response) {
-  console.log("<========== BEGIN REQUEST ============>");
-  // console.log(request.body.path);
-  console.log("are there any effing keys?");
-  console.log(request.body);
-  // for (var key in request) {
-  //   console.log(key);
-  // }
-  // console.log(" ====== request =========== > " + request);
-  // console.log(" ====== request.body ====== > " + request.body);
-  // console.log(" ====== request.body.text = > " + request.body.text);
-  console.log("<=========== END REQUEST =============>");
 
     // if /pengo includes following text ([id], rant, help, etc.)
     if (request.body.text) {
@@ -55,7 +44,7 @@ const pengo =  {
 
       // /pengo rant or whatever it's going to be called
       else if (request.body.text === 'rant') {
-        let responseText = '<img src="rant.png">';
+        let responseText = "<img src='rant.png'>";
         let data = {
           "response_type": "in_channel", // public to the channel
           "attachments": [
