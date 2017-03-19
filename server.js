@@ -3,7 +3,7 @@
 /* ========================== VENDOR DEPENDENCIES ========================== */
 
 const express  = require('express');
-//const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv   = require('dotenv').config();
 const app      = express();
@@ -20,8 +20,8 @@ const getQuote = require('./app/getQuote');
 const PORT = process.env.PORT || 3000;
 const url = process.env.MONGOLAB_URI;
 
-//app.use(bodyParser.json());
-//app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 /* ============================ DATABASE CONNECT =========================== */
