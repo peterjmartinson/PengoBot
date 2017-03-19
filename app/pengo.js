@@ -55,7 +55,7 @@ const pengo =  {
           ]
         }
         // response.send(data);
-        response.send(responseText);
+        response.send(data);
       }
 
       // /pengo help
