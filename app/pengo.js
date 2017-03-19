@@ -14,9 +14,10 @@ const getQuote = require('./getQuote');
 const pengo =  {
   handleCommand: function(request, response) {
   console.log("<========== BEGIN REQUEST ============>");
-  for (var key in request.body) {
-    console.log(key + " : " + request.body[key]);
-  }
+  console.log(request.body.path);
+  // for (var key in request.body) {
+  //   console.log(key + " : " + request.body[key]);
+  // }
   // console.log(" ====== request =========== > " + request);
   // console.log(" ====== request.body ====== > " + request.body);
   // console.log(" ====== request.body.text = > " + request.body.text);
