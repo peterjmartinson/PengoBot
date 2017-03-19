@@ -61,7 +61,7 @@ const pengo =  {
       // /pengo help
       else if (request.body.text === 'help'){
         let helpMessage =
-        '"/pengo" get a random quote from the Progmatic Programmer \n' +
+        '"/pengo" get a random quote from the Pragmatic Programmer \n' +
         '"/pengo [ID]" you can specifiy a quote by ID number \n' +
         '"/pengo rant" get the most important piece of advice';
 
