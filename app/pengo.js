@@ -16,9 +16,10 @@ const pengo =  {
   console.log("<========== BEGIN REQUEST ============>");
   // console.log(request.body.path);
   console.log("are there any effing keys?");
-  for (var key in request) {
-    console.log(key);
-  }
+  console.log(request.body);
+  // for (var key in request) {
+  //   console.log(key);
+  // }
   // console.log(" ====== request =========== > " + request);
   // console.log(" ====== request.body ====== > " + request.body);
   // console.log(" ====== request.body.text = > " + request.body.text);
