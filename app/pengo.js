@@ -15,6 +15,7 @@ const pengo =  {
   handleCommand: function(request, response) {
   console.log("<========== BEGIN REQUEST ============>");
   // console.log(request.body.path);
+  console.log("are there any effing keys?");
   for (var key in request.body) {
     console.log(key);
   }
