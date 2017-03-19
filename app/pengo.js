@@ -14,9 +14,12 @@ const getQuote = require('./getQuote');
 const pengo =  {
   handleCommand: function(request, response) {
   console.log("<========== BEGIN REQUEST ============>");
-  console.log(" ====== request =========== > " + request);
-  console.log(" ====== request.body ====== > " + request.body);
-  console.log(" ====== request.body.text = > " + request.body.text);
+  for (var key in request.body) {
+    console.log(key + " : " + request.body[key]);
+  }
+  // console.log(" ====== request =========== > " + request);
+  // console.log(" ====== request.body ====== > " + request.body);
+  // console.log(" ====== request.body.text = > " + request.body.text);
   console.log("<=========== END REQUEST =============>");
 
     // if /pengo includes following text ([id], rant, help, etc.)
