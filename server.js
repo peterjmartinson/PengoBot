@@ -40,10 +40,10 @@ db.once('open', function() {
 app.use(express.static('images')); // for fetching rant image
 
 app.get('/',function(req,res){
-  console.log("<========== BEGIN REQUEST ============>"
+  console.log("<========== BEGIN REQUEST ============>");
   console.log(" ====== req.text ====== > " + req.text);
   pengo.handleCommand(req, res);
-  console.log("<=========== END REQUEST =============>"
+  console.log("<=========== END REQUEST =============>");
 });
 
 
