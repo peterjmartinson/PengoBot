@@ -39,7 +39,7 @@ db.once('open', function() {
 
 app.use(express.static('images')); // for fetching rant image
 
-app.get('/',function(req,res){
+app.post('/',function(req,res){
   pengo.handleCommand(req, res);
 });
 
