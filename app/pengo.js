@@ -44,12 +44,12 @@ const pengo =  {
 
       // /pengo rant or whatever it's going to be called
       else if (request.body.text === 'rant') {
-        let responseText = "<img src='rant.png'>";
+        let responseURL = "https://pengo.herokuapp.com/rant.png";
         let data = {
           "response_type": "in_channel", // public to the channel
           "attachments": [
             {
-              "text": responseText,
+              "image_url": responseURL,
               "color": "warning"
             }
           ]
