@@ -80,8 +80,6 @@ const pengo =  {
 
 // ================ Begin Command Line Help
 
-      // else if ( /bash [\w-+]+$/mig.test(request.body.text)
-      //        && (request.body.text.match(/bash [\w-+]+$/gmi)).length === 1 ) {
       else if ( /bash [\w\-\+]+$/mig.test(request.body.text) ) {
         let responseText =
         'You are asking for a command!\n' +
