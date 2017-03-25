@@ -38,7 +38,12 @@ db.once('open', function() {
 /* ================================= ROUTES ================================ */
 
 app.use(express.static('images')); // for fetching rant image
+app.use(express.static(__dirname + '/public'));//for landing page
 
+app.get('/',function(req,res){
+res.sendFile(__dirname + '/public');
+console.log(__dirname);//for the landing page
+});
 app.post('/',function(req,res){
   pengo.handleCommand(req, res);
 });
