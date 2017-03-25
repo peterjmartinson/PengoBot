@@ -12,8 +12,11 @@
 const getQuote = require('./getQuote');
 
 const pengo =  {
-  handleCommand: function(request, response) {
 
+  handleCommand: function(request, response) {
+    if (request.token !== process.env.SLACK_VERIFICATION_TOKEN) {
+    return; // if request doesn't have a slack token, abort
+    }
     // if /pengo includes following text ([id], rant, help, etc.)
     if (request.body.text) {
 
@@ -49,13 +52,13 @@ const pengo =  {
           "response_type": "in_channel", // public to the channel
           "attachments": [
             {
-              "image_url": responseURL,
+              "text": responseURL,
               "color": "warning"
             }
           ]
         }
         // response.send(data);
-        response.send(data);
+        response.send(responseText);
       }
 
       // /pengo help
