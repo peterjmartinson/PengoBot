@@ -1,10 +1,11 @@
 'use strict';
 
-// TODO
 // /pengo - respond with random tip text from database
 // /pengo [ID] - respond with tip text from database specified by ID
 // /pengo rant - resond with special JPEG
 // /pengo help - responds with helpful tips on using /pengo commands
+// TODO
+// /pengo bash [command] - respond with reference from http://man.he.net
 
 
 // one function to handle all slack commands (subject to change if needed)
