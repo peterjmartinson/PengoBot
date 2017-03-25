@@ -78,6 +78,30 @@ const pengo =  {
         response.send(data);
       }
 
+// ================ Begin Command Line Help
+
+      // else if ( /bash [\w-+]+$/mig.test(request.body.text)
+      //        && (request.body.text.match(/bash [\w-+]+$/gmi)).length === 1 ) {
+      else if ( /bash [\w\-\+]+$/mig.test(request.body.text) ) {
+        let responseText =
+        'You are asking for a command!\n' +
+        'The command name is: ' +
+        request.body.text.substring(5);
+
+        let data = {
+          "response_type": "in_channel", // public to the channel
+          "attachments": [
+            {
+              "text": responseText,
+              "color": "good"
+            }
+          ]
+        }
+        response.send(data);
+      }
+
+// ================== End Command Line Help
+
       // /pengo (wrong text)
       else {
         let errorMessage = "Sorry, looks like you typed something in wrong. Try /pengo help.";
