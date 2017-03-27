@@ -54,7 +54,7 @@ app.get('/auth', function(req, res) {
 		if (!error && res.statusCode === 200) {
 		// get auth token
 		  	let token = res.body.access_token;
-			res.redirect('https://pengo.herokuapp.com/');
+			res.end();
     	}
 	});
 });
