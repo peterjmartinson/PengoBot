@@ -50,10 +50,10 @@ app.get('/auth', function(req, res) {
 	let code = req.query.code;
 
 	request.post(`https://slack.com/api/oauth.access?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&redirect_uri=${escape('https://pengo.herokuapp.com/auth')}`,
-	 function(error, res, body) {
+	function(error, res) {
 		if (!error && res.statusCode === 200) {
 			// get auth token
-		  let token = body.access_token;
+		  let token = res.body.access_token;
 
 			res.send('Pengo has been added to your Slack team!'); // replace with redirect to success page?
     }
