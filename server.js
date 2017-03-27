@@ -43,22 +43,20 @@ db.once('open', function() {
 app.get('/auth', function(req, res) {
 	// if slack oauth access denied
 	if (!req.query.code) {
-    res.redirect('https://pengo.herokuapp.com/'); // return to landing page
-    return;
-  }
+    	res.redirect('https://pengo.herokuapp.com/'); // return to landing page
+		return;
+  	}
 
 	let code = req.query.code;
 
-	request.post(`https://slack.com/api/oauth.access?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&redirect_uri=${escape('https://pengo.herokuapp.com/auth')}`,
-
-	function(error, res) {
+	request.post(`https://slack.com/api/oauth.access?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&redirect_uri=${escape('https://pengo.herokuapp.com/auth')}`)
+	.end(function(error, res) {
 		if (!error && res.statusCode === 200) {
-			// get auth token
-		  let token = res.body.access_token;
-
-			res.send('Pengo has been added to your Slack team!'); // replace with redirect to success page?
-    }
-  });
+		// get auth token
+		  	let token = res.body.access_token;
+			res.send('Pengo has been added to your Slack team!'); // replace with redirect to success page
+    	}
+	});
 });
 
 /* ================================= ROUTES ================================ */
@@ -71,7 +69,7 @@ app.get('/',function(req,res){
 	console.log(__dirname);//for the landing page
 });
 app.post('/',function(req,res) {
-  pengo.handleCommand(req, res);
+  	pengo.handleCommand(req, res);
 });
 
 /* ================================ RUN APP ================================ */
