@@ -20,9 +20,8 @@ const getQuote = require('./app/getQuote');
 
 const PORT = process.env.PORT || 3000;
 const url = process.env.MONGOLAB_URI;
-const SLACK_CLIENT_ID = process.env.CLIENT_ID;
-const SLACK_CLIENT_SECRET = process.env.CLIENT_SECRET;
-const SLACK_VERIFICATION_TOKEN = process.env.VERIFICATION_TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -50,10 +49,11 @@ app.get('/auth', function(req, res) {
 	let code = req.query.code;
 
 	request.post(`https://slack.com/api/oauth.access?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&redirect_uri=${escape('https://pengo.herokuapp.com/auth')}`,
-	function(error, res, body) {
+
+	function(error, res) {
 		if (!error && res.statusCode === 200) {
 			// get auth token
-		  let token = body.access_token;
+		  let token = res.body.access_token;
 
 			res.send('Pengo has been added to your Slack team!'); // replace with redirect to success page?
     }
