@@ -20,9 +20,8 @@ const getQuote = require('./app/getQuote');
 
 const PORT = process.env.PORT || 3000;
 const url = process.env.MONGOLAB_URI;
-const SLACK_CLIENT_ID = process.env.CLIENT_ID;
-const SLACK_CLIENT_SECRET = process.env.CLIENT_SECRET;
-const SLACK_VERIFICATION_TOKEN = process.env.VERIFICATION_TOKEN;
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
