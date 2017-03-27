@@ -14,6 +14,7 @@ const getQuote = require('./getQuote');
 const pengo =  {
 
   handleCommand: function(request, response) {
+
     if (request.token !== process.env.VERIFICATION_TOKEN) {
     return; // if request doesn't have a slack token, abort
     }

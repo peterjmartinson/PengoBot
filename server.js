@@ -20,6 +20,7 @@ const getQuote = require('./app/getQuote');
 
 const PORT = process.env.PORT || 3000;
 const url = process.env.MONGOLAB_URI;
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
