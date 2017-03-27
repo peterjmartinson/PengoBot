@@ -51,11 +51,12 @@ app.get('/auth', function(req, res) {
 
 	request.get(`https://slack.com/api/oauth.access?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&redirect_uri=${escape('https://pengo.herokuapp.com/auth')}`,
 	function(error, result) {
-		if (!error && result.statusCode === 200) {
-		// get auth token
-		  	let token = result.body.access_token;
-			result.send('Pengo Added.');
+		if (error) {
+			res.send('Error, try again later.');
     	}
+		// get auth token
+		let token = result.body.access_token;
+		res.send('Pengo Added.');
 	});
 });
 
