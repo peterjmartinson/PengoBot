@@ -50,6 +50,7 @@ app.get('/auth', function(req, res) {
 	let code = req.query.code;
 
 	request.post(`https://slack.com/api/oauth.access?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}&redirect_uri=${escape('https://pengo.herokuapp.com/auth')}`,
+
 	function(error, res) {
 		if (!error && res.statusCode === 200) {
 			// get auth token
@@ -63,8 +64,13 @@ app.get('/auth', function(req, res) {
 /* ================================= ROUTES ================================ */
 
 app.use(express.static('images')); // for fetching rant image
+app.use(express.static(__dirname + '/public'));//for landing page
 
-app.post('/', function(req, res){
+app.get('/',function(req,res){
+	res.sendFile(__dirname + '/public');
+	console.log(__dirname);//for the landing page
+});
+app.post('/',function(req,res) {
   pengo.handleCommand(req, res);
 });
 
