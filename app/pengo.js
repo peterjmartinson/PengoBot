@@ -10,7 +10,8 @@
 
 // one function to handle all slack commands (subject to change if needed)
 
-const getQuote = require('./getQuote');
+const getQuote   = require('./getQuote'),
+      getCommand = require('./getCommand');
 
 const pengo =  {
   handleCommand: function(request, response) {
@@ -81,21 +82,25 @@ const pengo =  {
 // ================ Begin Command Line Help
 
       else if ( /bash [\w\-\+]+$/mig.test(request.body.text) ) {
-        let responseText =
-        'You are asking for a command!\n' +
-        'The command name is: ' +
-        request.body.text.substring(5);
+        let footerText =
+          'You are asking for a command!\n' +
+          'The command name is: ' +
+          request.body.text.substring(5);
+        getCommand(request.body.text.substring(5), function(err, man) {
+          if (err) console.error(err);
 
-        let data = {
-          "response_type": "in_channel", // public to the channel
-          "attachments": [
-            {
-              "text": responseText,
-              "color": "good"
-            }
-          ]
-        }
-        response.send(data);
+          let data = {
+            "response_type": "in_channel", // public to the channel
+            "attachments": [
+              {
+                "text": man.synopsis,
+                "color": "good",
+                "footer": footerText
+              }
+            ]
+          }
+          response.send(data);
+        });
       }
 
 // ================== End Command Line Help
