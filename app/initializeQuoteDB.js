@@ -5,41 +5,13 @@
  *   _The Pragmatic Programmer_
  * into a local or mLab MongoDB database
  *
- * Problem:  How to end execution without Ctrl-c?
- *
  * Author: Peter Martinson
  * Date:   March 10, 2017
 */
-var mongoose = require('mongoose');
-var assert   = require('assert');  // node's native unit tester
-var dotenv   = require('dotenv');
-var config   = require('./config');
+const mongoose = require('mongoose');
+const quoteSchema = require('../models/quoteSchema.js');
 
-// var url      = process.env.MONGOLAB_URI;  // mLab database
-// var url      = "mongodb://localhost:27017/pragmatic"; // local database
-var url      = "mongodb://" + config.username + ":" + config.password + "@ds123400.mlab.com:23400/quotes";
-
-mongoose.Promise = Promise;
-mongoose.connect(url);
-
-var quoteSchema = mongoose.Schema({
-  quote_id:       Number,
-  source:         String,
-  source_href:    String,
-  quote:          String,
-  quote_href:     String,
-  subquote:       String,
-  subquote_href:  String
-});
-
-var Quote = mongoose.model('Quote', quoteSchema);
-
-// empty the database!
-Quote.remove({}, function(err) {
-  assert.equal(null, err, "There's something wrong... " + err);
-  console.log("database emptied.");
-});
-
+const Quote = mongoose.model('Quote', quoteSchema);
 
 // list the quotes
 var allQuotes = [
@@ -325,26 +297,34 @@ var allQuotes = [
   }
 ];
 
-// Insert the quotes into a complete Model
-var allDocuments = [];
-allQuotes.forEach(function(element, index) {
-  allDocuments[index] = {
-    quote_id: index + 1,
-    source: "The Pragmatic Programmer",
-    source_href:    "",
-    quote: element.quote,
-    quote_href:     "",
-    subquote: element.subquote,
-    subquote_href:  ""
-  };
-});
+module.exports = function() {
 
-// Load all documents into the database
-Quote.create(allDocuments, function (err, results) {
-  console.log(results);
-});
+  var allDocuments = [];
+  allQuotes.forEach(function(element, index) {
+    allDocuments[index] = {
+      quote_id      : index + 1,
+      source        : "The Pragmatic Programmer",
+      source_href   : "https://pragprog.com/the-pragmatic-programmer/extracts/tips",
+      quote         : element.quote,
+      quote_href    : "",
+      subquote      : element.subquote,
+      subquote_href : ""
+    };
+  });
 
+  // empty the database!
+  Quote.remove({}, function(err) {
+    if (err) console.log(err);
+    console.log("database emptied.");
+  });
 
+  // Load all documents into the database
+  Quote.create(allDocuments, function (err, results) {
+    if (err) console.log(err);
+    console.log("database populated:");
+    console.log(results);
+  });
+}
 
 
 
