@@ -71,7 +71,7 @@ app.post('/',function(req, res) {
   pengo.handleCommand(req, res);
 });
 
-app.get('/populate'function(req, res) {
+app.get('/populate', function(req, res) {
   initializeQuoteDB();
 });
 
