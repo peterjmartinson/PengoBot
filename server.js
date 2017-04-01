@@ -1,36 +1,31 @@
 'use strict';
 
-/* ========================== VENDOR DEPENDENCIES ========================== */
+/* ============================ SETUP ============================ */
 
-const express  = require('express');
-const bodyParser = require('body-parser');
-const request = require('request');
-const mongoose = require('mongoose');
-const dotenv   = require('dotenv').config();
-const app      = express();
+const express       = require('express'),
+      app           = express(),
+      bodyParser    = require('body-parser'),
+      mongoose      = require('mongoose'),
+      request       = require('request'),
+      cheerio       = require('cheerio'),
 
-const request    = require('request');
-const cheerio    = require('cheerio');
+      // Local Dependencies
+      pengo         = require('./app/pengo'),
+      getQuote      = require('./app/getQuote'), // is this needed here?
 
-/* =========================== LOCAL DEPENDENCIES ========================== */
+      // Global Config
+      dotenv        = require('dotenv').config(),
+      PORT          = process.env.PORT || 3000,
+      url           = process.env.MONGOLAB_URI,
 
-const pengo    = require('./app/pengo');
-const getQuote = require('./app/getQuote'); // is this needed here?
-
-
-/* ============================= GLOBAL CONFIG ============================= */
-
-const PORT = process.env.PORT || 3000;
-const url = process.env.MONGOLAB_URI;
-
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+      // Slack Config
+      CLIENT_ID     = process.env.CLIENT_ID,
+      CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-/* ============================ DATABASE CONNECT =========================== */
+/* ======================= DATABASE CONNECT ======================= */
 
 mongoose.connect(url);
 
@@ -40,7 +35,7 @@ db.once('open', function() {
 	console.log('Db connected successfully');
 });
 
-/* ================================= AUTH ================================== */
+/* ============================= AUTH ============================= */
 
 app.get('/auth', function(req, res) {
 	// if slack oauth access denied
