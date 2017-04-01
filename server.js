@@ -12,6 +12,7 @@ const express       = require('express'),
       // Local Dependencies
       pengo         = require('./app/pengo'),
       getQuote      = require('./app/getQuote'), // is this needed here?
+      initializeQuoteDB = require('./app/initializeQuoteDB'),
 
       // Global Config
       dotenv        = require('dotenv').config(),
