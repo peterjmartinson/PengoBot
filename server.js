@@ -9,11 +9,13 @@ const mongoose = require('mongoose');
 const dotenv   = require('dotenv').config();
 const app      = express();
 
+const request    = require('request');
+const cheerio    = require('cheerio');
 
 /* =========================== LOCAL DEPENDENCIES ========================== */
 
 const pengo    = require('./app/pengo');
-const getQuote = require('./app/getQuote');
+const getQuote = require('./app/getQuote'); // is this needed here?
 
 
 /* ============================= GLOBAL CONFIG ============================= */

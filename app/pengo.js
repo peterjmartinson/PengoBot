@@ -1,15 +1,17 @@
 'use strict';
 
-// TODO
 // /pengo - respond with random tip text from database
 // /pengo [ID] - respond with tip text from database specified by ID
 // /pengo rant - resond with special JPEG
 // /pengo help - responds with helpful tips on using /pengo commands
+// TODO
+// /pengo bash [command] - respond with reference from http://man.he.net
 
 
 // one function to handle all slack commands (subject to change if needed)
 
-const getQuote = require('./getQuote');
+const getQuote   = require('./getQuote'),
+      getCommand = require('./getCommand');
 
 const pengo =  {
 
@@ -80,6 +82,32 @@ const pengo =  {
         }
         response.send(data);
       }
+
+// ================ Begin Command Line Help
+
+      else if ( /bash [\w\-\+]+$/mig.test(request.body.text) ) {
+        let footerText =
+          'You are asking for a command!\n' +
+          'The command name is: ' +
+          request.body.text.substring(5);
+        getCommand(request.body.text.substring(5), function(err, man) {
+          if (err) console.error(err);
+
+          let data = {
+            "response_type": "in_channel", // public to the channel
+            "attachments": [
+              {
+                "text": man.synopsis,
+                "color": "good",
+                "footer": footerText
+              }
+            ]
+          }
+          response.send(data);
+        });
+      }
+
+// ================== End Command Line Help
 
       // /pengo (wrong text)
       else {
