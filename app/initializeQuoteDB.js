@@ -25,11 +25,6 @@ mongoose.connect(url);
 
 var Quote = mongoose.model('Quote', quoteSchema);
 
-// empty the database!
-Quote.remove({}, function(err) {
-  assert.equal(null, err, "There's something wrong... " + err);
-  console.log("database emptied.");
-});
 
 
 // list the quotes
@@ -318,6 +313,7 @@ var allQuotes = [
 
 // Insert the quotes into a complete Model
 var allDocuments = [];
+
 allQuotes.forEach(function(element, index) {
   allDocuments[index] = {
     quote_id      : index + 1,
@@ -328,6 +324,12 @@ allQuotes.forEach(function(element, index) {
     subquote      : element.subquote,
     subquote_href : ""
   };
+});
+
+// empty the database!
+Quote.remove({}, function(err) {
+  assert.equal(null, err, "There's something wrong... " + err);
+  console.log("database emptied.");
 });
 
 // Load all documents into the database
