@@ -17,7 +17,7 @@ const pengo =  {
 
   handleCommand: function(request, response) {
 
-    if (request.token !== process.env.VERIFICATION_TOKEN) {
+    if (request.body.token !== process.env.VERIFICATION_TOKEN) {
     return; // if request doesn't have a slack token, abort
     }
     // if /pengo includes following text ([id], rant, help, etc.)
