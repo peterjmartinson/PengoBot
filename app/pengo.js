@@ -89,22 +89,35 @@ const pengo =  {
         let footerText =
           'You are asking for a command!\n' +
           'The command name is: ' +
-          request.body.text.substring(5);
-        getCommand(request.body.text.substring(5), function(err, man) {
-          if (err) console.error(err);
+          request.body.text.substring(5) +
+          '\nBut this function is still in development!';
 
-          let data = {
-            "response_type": "in_channel", // public to the channel
-            "attachments": [
-              {
-                "text": man.synopsis,
-                "color": "good",
-                "footer": footerText
-              }
-            ]
-          }
-          response.send(data);
-        });
+        let data = {
+          "response_type": "ephemeral", // public to the channel
+          "attachments": [
+            {
+              "text": "Whoops!",
+              "color": "good",
+              "footer": footerText
+            }
+          ]
+        }
+        response.send(data);
+        // getCommand(request.body.text.substring(5), function(err, man) {
+        //   if (err) console.error(err);
+
+        //   let data = {
+        //     "response_type": "in_channel", // public to the channel
+        //     "attachments": [
+        //       {
+        //         "text": man.synopsis,
+        //         "color": "good",
+        //         "footer": footerText
+        //       }
+        //     ]
+        //   }
+        //   response.send(data);
+        // });
       }
 
 // ================== End Command Line Help

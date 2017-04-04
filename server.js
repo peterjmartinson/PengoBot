@@ -72,9 +72,10 @@ app.post('/',function(req, res) {
   pengo.handleCommand(req, res);
 });
 
-app.get('/populate', function(req, res) {
-  initializeQuoteDB();
-});
+// UNCOMMENT TO REPOPULATE QUOTES DATABASE
+// app.get('/populate', function(req, res) {
+//   initializeQuoteDB();
+// });
 
 /* ================================ RUN APP ================================ */
 
