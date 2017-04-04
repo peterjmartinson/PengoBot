@@ -17,7 +17,7 @@ const pengo =  {
 
   handleCommand: function(request, response) {
 
-    if (request.token !== process.env.VERIFICATION_TOKEN) {
+    if (request.body.token !== process.env.VERIFICATION_TOKEN) {
     return; // if request doesn't have a slack token, abort
     }
     // if /pengo includes following text ([id], rant, help, etc.)
@@ -27,6 +27,7 @@ const pengo =  {
       if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
+
           if ( quote.bad_number ) {
             let data = {
               "response_type": "ephemeral", // public to the channel
@@ -39,15 +40,17 @@ const pengo =  {
             let quoteId = quote[0].quote_id;
             let quoteSource = quote[0].source;
             let subQuote = quote[0].subquote;
+            let quoteSourceUrl = quote[0].source_href;
 
             let data = {
               "response_type": "in_channel", // public to the channel
               "text": "*" + mainQuote + "*",
               "attachments": [
                 {
-                  "text": subQuote,
+                  "text": subQuote + "\n" + "<" + quoteSourceUrl + "|" + quoteSource + " #" + quoteId + ">",
                   "color": "good",
-                  "footer": quoteSource + " | "  + "#" + quoteId
+                  "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+                  "mrkdwn_in": ["text"]
                 }
               ]
             }
@@ -154,15 +157,17 @@ const pengo =  {
         let quoteId = quote[0].quote_id;
         let quoteSource = quote[0].source;
         let subQuote = quote[0].subquote;
+        let quoteSourceUrl = quote[0].source_href;
 
         let data = {
           "response_type": "in_channel", // public to the channel
           "text": "*" + mainQuote + "*",
           "attachments": [
             {
-              "text": subQuote,
+              "text": subQuote + "\n" + "<" + quoteSourceUrl + "|" + quoteSource + " #" + quoteId + ">",
               "color": "good",
-              "footer": quoteSource + " | "  + "#" + quoteId
+              "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+              "mrkdwn_in": ["text"]
             }
           ]
         }
