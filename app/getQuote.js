@@ -33,7 +33,7 @@ module.exports = {
         });
       }
       else {
-        callback(null,-1);
+        callback(null,{ bad_number:1, N:N});
       }
     });
   },

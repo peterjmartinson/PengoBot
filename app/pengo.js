@@ -27,11 +27,10 @@ const pengo =  {
       if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
-          if ( quote === -1 ) {
-            let N = 77;
+          if ( quote.bad_number ) {
             let data = {
               "response_type": "ephemeral", // public to the channel
-              "text": "Please enter a number between 1 and " + N,
+              "text": "Please enter a number between 1 and " + quote.N,
             }
             response.send(data);
           }
