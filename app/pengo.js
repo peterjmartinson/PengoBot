@@ -32,15 +32,17 @@ const pengo =  {
           let quoteId = quote[0].quote_id;
           let quoteSource = quote[0].source;
           let subQuote = quote[0].subquote;
+          let quoteSourceUrl = quote[0].source_href;
 
           let data = {
             "response_type": "in_channel", // public to the channel
             "text": "*" + mainQuote + "*",
             "attachments": [
               {
-                "text": subQuote,
+                "text": subQuote + "\n" + "<" + quoteSourceUrl + "|" + quoteSource + " #" + quoteId + ">",
                 "color": "good",
-                "footer": quoteSource + " | "  + "#" + quoteId
+                "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+                "mrkdwn_in": ["text"]
               }
             ]
           }
@@ -134,15 +136,17 @@ const pengo =  {
         let quoteId = quote[0].quote_id;
         let quoteSource = quote[0].source;
         let subQuote = quote[0].subquote;
+        let quoteSourceUrl = quote[0].source_href;
 
         let data = {
           "response_type": "in_channel", // public to the channel
           "text": "*" + mainQuote + "*",
           "attachments": [
             {
-              "text": subQuote,
+              "text": subQuote + "\n" + "<" + quoteSourceUrl + "|" + quoteSource + " #" + quoteId + ">",
               "color": "good",
-              "footer": quoteSource + " | "  + "#" + quoteId
+              "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+              "mrkdwn_in": ["text"]
             }
           ]
         }
