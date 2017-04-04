@@ -26,14 +26,14 @@ module.exports = {
   byID:     function(id, callback) {
     Quote.count({}, function(err, N) {
       if (err) callback(err);
-      if ( id <= N ) {
+      if ( id > 0 && id <= N ) {
         Quote.find({ quote_id : id }, function(err, result) {
           if (err) callback(err);
           else     callback(null, result);
         });
       }
       else {
-        // return a BAD NUMBER flag
+        callback(null,-1);
       }
     });
   },
