@@ -27,24 +27,33 @@ const pengo =  {
       if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
-
-          let mainQuote = quote[0].quote;
-          let quoteId = quote[0].quote_id;
-          let quoteSource = quote[0].source;
-          let subQuote = quote[0].subquote;
-
-          let data = {
-            "response_type": "in_channel", // public to the channel
-            "text": "*" + mainQuote + "*",
-            "attachments": [
-              {
-                "text": subQuote,
-                "color": "good",
-                "footer": quoteSource + " | "  + "#" + quoteId
-              }
-            ]
+          if ( quote === -1 ) {
+            let N = 77;
+            let data = {
+              "response_type": "ephemeral", // public to the channel
+              "text": "Please enter a number between 1 and " + N,
+            }
+            response.send(data);
           }
-          response.send(data);
+          else {
+            let mainQuote = quote[0].quote;
+            let quoteId = quote[0].quote_id;
+            let quoteSource = quote[0].source;
+            let subQuote = quote[0].subquote;
+
+            let data = {
+              "response_type": "in_channel", // public to the channel
+              "text": "*" + mainQuote + "*",
+              "attachments": [
+                {
+                  "text": subQuote,
+                  "color": "good",
+                  "footer": quoteSource + " | "  + "#" + quoteId
+                }
+              ]
+            }
+            response.send(data);
+          }
         });
       }
 
@@ -55,13 +64,12 @@ const pengo =  {
           "response_type": "in_channel", // public to the channel
           "attachments": [
             {
-              "text": responseURL,
+              "image_url": responseURL,
               "color": "warning"
             }
           ]
         }
-        // response.send(data);
-        response.send(responseText);
+        response.send(data);
       }
 
       // /pengo help
