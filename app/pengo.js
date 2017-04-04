@@ -57,13 +57,12 @@ const pengo =  {
           "response_type": "in_channel", // public to the channel
           "attachments": [
             {
-              "text": responseURL,
+              "image_url": responseURL,
               "color": "warning"
             }
           ]
         }
-        // response.send(data);
-        response.send(responseText);
+        response.send(data);
       }
 
       // /pengo help
