@@ -16,10 +16,25 @@ const Quote = mongoose.model('Quote', quoteSchema);
 
 module.exports = {
 
+  // byID:     function(id, callback) {
+  //   Quote.find({ quote_id : id }, function(err, result) {
+  //     if (err) callback(err);
+  //     else     callback(null, result);
+  //   });
+  // },
+
   byID:     function(id, callback) {
-    Quote.find({ quote_id : id }, function(err, result) {
+    Quote.count({}, function(err, N) {
       if (err) callback(err);
-      else     callback(null, result);
+      if ( id > 0 && id <= N ) {
+        Quote.find({ quote_id : id }, function(err, result) {
+          if (err) callback(err);
+          else     callback(null, result);
+        });
+      }
+      else {
+        callback(null,{ bad_number:1, N:N});
+      }
     });
   },
 

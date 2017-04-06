@@ -28,25 +28,34 @@ const pengo =  {
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
 
-          let mainQuote = quote[0].quote;
-          let quoteId = quote[0].quote_id;
-          let quoteSource = quote[0].source;
-          let subQuote = quote[0].subquote;
-          let quoteSourceUrl = quote[0].source_href;
-
-          let data = {
-            "response_type": "in_channel", // public to the channel
-            "text": "*" + mainQuote + "*",
-            "attachments": [
-              {
-                "text": subQuote + "\n" + "<" + quoteSourceUrl + "|" + quoteSource + " #" + quoteId + ">",
-                "color": "good",
-                "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
-                "mrkdwn_in": ["text"]
-              }
-            ]
+          if ( quote.bad_number ) {
+            let data = {
+              "response_type": "ephemeral", // public to the channel
+              "text": "Please enter a number between 1 and " + quote.N,
+            }
+            response.send(data);
           }
-          response.send(data);
+          else {
+            let mainQuote = quote[0].quote;
+            let quoteId = quote[0].quote_id;
+            let quoteSource = quote[0].source;
+            let subQuote = quote[0].subquote;
+            let quoteSourceUrl = quote[0].source_href;
+
+            let data = {
+              "response_type": "in_channel", // public to the channel
+              "text": "*" + mainQuote + "*",
+              "attachments": [
+                {
+                  "text": subQuote + "\n" + "<" + quoteSourceUrl + "|" + quoteSource + " #" + quoteId + ">",
+                  "color": "good",
+                  "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+                  "mrkdwn_in": ["text"]
+                }
+              ]
+            }
+            response.send(data);
+          }
         });
       }
 
