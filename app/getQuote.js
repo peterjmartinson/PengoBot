@@ -9,21 +9,13 @@
 */
 
 
-const mongoose    = require('mongoose');
-const quoteSchema = require('../models/quoteSchema.js');
-
-const Quote = mongoose.model('Quote', quoteSchema);
+const mongoose    = require('mongoose'),
+      quoteSchema = require('../models/quoteSchema.js'),
+      Quote = mongoose.model('Quote', quoteSchema);
 
 module.exports = {
 
-  // byID:     function(id, callback) {
-  //   Quote.find({ quote_id : id }, function(err, result) {
-  //     if (err) callback(err);
-  //     else     callback(null, result);
-  //   });
-  // },
-
-  byID:     function(id, callback) {
+  byID: function(id, callback) {
     Quote.count({}, function(err, N) {
       if (err) callback(err);
       if ( id > 0 && id <= N ) {
@@ -33,6 +25,7 @@ module.exports = {
         });
       }
       else {
+        // User entered an out-of-range ID
         callback(null,{ bad_number:1, N:N});
       }
     });
