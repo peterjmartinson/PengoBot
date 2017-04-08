@@ -5,8 +5,12 @@
  *   _The Pragmatic Programmer_
  * into a local or mLab MongoDB database
  *
- * Author: Peter Martinson
- * Date:   March 10, 2017
+ * © 2017 Team Pengo
+ *
+ * Authors: Khyati Kulshreshtha,
+ *          Monyette Tanzillo,
+ *          Claudio Gentile,
+ *          Peter Martinson 
 */
 const mongoose    = require('mongoose'),
       quoteSchema = require('../models/quoteSchema.js'),

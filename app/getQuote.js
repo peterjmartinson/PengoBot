@@ -4,8 +4,12 @@
  *   getQuote.byID(id, function(err, res));
  *   getQuote.atRandom(function(err, res));
  *
- * Author: Peter Martinson
- * Date:   March 10, 2017
+ * © 2017 Team Pengo
+ *
+ * Authors: Khyati Kulshreshtha,
+ *          Monyette Tanzillo,
+ *          Claudio Gentile,
+ *          Peter Martinson 
 */
 
 

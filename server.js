@@ -1,3 +1,14 @@
+/*
+ * Server for /pengo
+ *
+ * © 2017 Team Pengo
+ *
+ * Authors: Khyati Kulshreshtha,
+ *          Monyette Tanzillo,
+ *          Claudio Gentile,
+ *          Peter Martinson 
+*/
+
 'use strict';
 
 /* ============================ SETUP ============================ */
