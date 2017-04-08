@@ -11,9 +11,10 @@
 // one function to handle all slack commands (subject to change if needed)
 
 const getQuote   = require('./getQuote'),
-      getCommand = require('./getCommand');
+      getCommand = require('./getCommand'),
+      pengo;
 
-const pengo =  {
+pengo = {
 
   handleCommand: function(request, response) {
 
@@ -23,14 +24,18 @@ const pengo =  {
     // if /pengo includes following text ([id], rant, help, etc.)
     if (request.body.text) {
 
-      // /pengo [ID]
-      if ( isNumeric(request.body.text) ){ // TODO add test if id number is in quote db range ex.(1-20)
+      /* 
+       * /pengo [ID]
+       *
+       * Returns a specified quote
+      */
+      if ( isNumeric(request.body.text) ){
         getQuote.byID(request.body.text, function(err, quote) {
           if (err) console.error(err);
 
           if ( quote.bad_number ) {
             let data = {
-              "response_type": "ephemeral", // public to the channel
+              "response_type": "ephemeral",
               "text": "Please enter a number between 1 and " + quote.N,
             }
             response.send(data);
@@ -43,7 +48,7 @@ const pengo =  {
             let quoteSourceUrl = quote[0].source_href;
 
             let data = {
-              "response_type": "in_channel", // public to the channel
+              "response_type": "in_channel",
               "text": "*" + mainQuote + "*",
               "attachments": [
                 {
@@ -59,11 +64,15 @@ const pengo =  {
         });
       }
 
-      // /pengo rant or whatever it's going to be called
+      /* 
+       * /pengo rant
+       *
+       * Returns an inspirational image
+      */
       else if (request.body.text === 'rant') {
         let responseURL = "https://pengo.herokuapp.com/rant.png";
         let data = {
-          "response_type": "in_channel", // public to the channel
+          "response_type": "in_channel",
           "attachments": [
             {
               "image_url": responseURL,
@@ -74,7 +83,11 @@ const pengo =  {
         response.send(data);
       }
 
-      // /pengo help
+      /* 
+       * /pengo help
+       *
+       * Provides usage instructions
+      */
       else if (request.body.text === 'help'){
         let helpMessage =
         '"/pengo" get a random quote from the Pragmatic Programmer \n' +
@@ -82,7 +95,7 @@ const pengo =  {
         '"/pengo rant" get the most important piece of advice';
 
         let data = {
-          "response_type": "in_channel", // public to the channel
+          "response_type": "in_channel",
           "attachments": [
             {
               "text": helpMessage,
@@ -95,6 +108,12 @@ const pengo =  {
 
 // ================ Begin Command Line Help
 
+      /* 
+       * /pengo bash <command>
+       *
+       * Returns command line syntax
+       *   @@@@ IN DEVELOPMENT!!! @@@@
+      */
       else if ( /bash [\w\-\+]+$/mig.test(request.body.text) ) {
         let footerText =
           'You are asking for a command!\n' +
@@ -103,7 +122,7 @@ const pengo =  {
           '\nBut this function is still in development!';
 
         let data = {
-          "response_type": "ephemeral", // public to the channel
+          "response_type": "ephemeral",
           "attachments": [
             {
               "text": "Whoops!",
@@ -132,11 +151,15 @@ const pengo =  {
 
 // ================== End Command Line Help
 
-      // /pengo (wrong text)
+      /* 
+       * /pengo ERROR
+       *
+       * Returns a friendly error message
+      */
       else {
         let errorMessage = "Sorry, looks like you typed something in wrong. Try /pengo help.";
         let data = {
-          "response_type": "ephemeral", // only visible to user
+          "response_type": "ephemeral",
           "attachments": [
             {
               "text": errorMessage,
@@ -148,11 +171,14 @@ const pengo =  {
       }
     }
 
+    /* 
+     * /pengo
+     *
+     * Returns a random message
+    */
     else {
-      // /pengo, when response.body.text = ''
       getQuote.atRandom(function(err, quote) {
         if (err) console.error(err);
-        // let responseText = quote[0].quote;
         let mainQuote = quote[0].quote;
         let quoteId = quote[0].quote_id;
         let quoteSource = quote[0].source;
@@ -160,7 +186,7 @@ const pengo =  {
         let quoteSourceUrl = quote[0].source_href;
 
         let data = {
-          "response_type": "in_channel", // public to the channel
+          "response_type": "in_channel",
           "text": "*" + mainQuote + "*",
           "attachments": [
             {
@@ -181,7 +207,5 @@ const pengo =  {
 function isNumeric(value) {
     return /^\d+$/.test(value);
 }
-
-
 
 module.exports = pengo;

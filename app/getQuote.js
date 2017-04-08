@@ -11,7 +11,7 @@
 
 const mongoose    = require('mongoose'),
       quoteSchema = require('../models/quoteSchema.js'),
-      Quote = mongoose.model('Quote', quoteSchema);
+      Quote       = mongoose.model('Quote', quoteSchema);
 
 module.exports = {
 
@@ -19,10 +19,12 @@ module.exports = {
     Quote.count({}, function(err, N) {
       if (err) callback(err);
       if ( id > 0 && id <= N ) {
+
         Quote.find({ quote_id : id }, function(err, result) {
           if (err) callback(err);
           else     callback(null, result);
         });
+
       }
       else {
         // User entered an out-of-range ID
@@ -35,13 +37,14 @@ module.exports = {
     Quote.count({}, function(err, N) {
       if (err) callback(err);
       var id = Math.floor(Math.random() * N);
+
       Quote.find({ quote_id : id }, function(err, result) {
         if (err) callback(err);
         else     callback(null, result, id);
       });
+
     });
   }
-
 }
 
 
