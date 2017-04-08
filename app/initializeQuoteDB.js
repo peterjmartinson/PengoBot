@@ -8,10 +8,9 @@
  * Author: Peter Martinson
  * Date:   March 10, 2017
 */
-const mongoose = require('mongoose');
-const quoteSchema = require('../models/quoteSchema.js');
-
-const Quote = mongoose.model('Quote', quoteSchema);
+const mongoose    = require('mongoose'),
+      quoteSchema = require('../models/quoteSchema.js'),
+      Quote       = mongoose.model('Quote', quoteSchema);
 
 // list the quotes
 var allQuotes = [
