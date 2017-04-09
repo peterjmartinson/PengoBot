@@ -4,7 +4,7 @@
  * © 2017 Team Pengo
  *
  * Authors: Khyati Kulshreshtha,
- *          Monyette Tanzillo,
+ *          Monyett Tanzillo,
  *          Claudio Gentile,
  *          Peter Martinson 
 */
