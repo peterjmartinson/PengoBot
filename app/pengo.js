@@ -28,10 +28,9 @@
 // one function to handle all slack commands (subject to change if needed)
 
 const getQuote   = require('./getQuote'),
-      getCommand = require('./getCommand'),
-      pengo;
+      getCommand = require('./getCommand');
 
-pengo = {
+const pengo = {
 
   handleCommand: function(request, response) {
 
