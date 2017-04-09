@@ -111,7 +111,7 @@ const pengo = {
         '"/pengo rant" get the most important piece of advice';
 
         let data = {
-          "response_type": "in_channel",
+          "response_type": "ephemeral",
           "attachments": [
             {
               "text": helpMessage,
