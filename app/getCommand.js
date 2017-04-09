@@ -1,11 +1,15 @@
-/* 
+/*
  * getCommand(command, callback)
  * 
  * pass a Bash command to getCommand, and receive
  * the main parts of the relevant man page!
- * 
- * Author: Peter Martinson
- * Date:   March 27, 2017
+ *
+ * © 2017 Team Pengo
+ *
+ * Authors: Khyati Kulshreshtha,
+ *          Monyett Tanzillo,
+ *          Claudio Gentile,
+ *          Peter Martinson 
 */
 
 

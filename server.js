@@ -1,3 +1,14 @@
+/*
+ * Server for /pengo
+ *
+ * © 2017 Team Pengo
+ *
+ * Authors: Khyati Kulshreshtha,
+ *          Monyett Tanzillo,
+ *          Claudio Gentile,
+ *          Peter Martinson 
+*/
+
 'use strict';
 
 /* ============================ SETUP ============================ */
@@ -58,14 +69,13 @@ app.get('/auth', function(req, res) {
 	});
 });
 
-/* ================================= ROUTES ================================ */
+/* ============================ ROUTES ============================ */
 
-app.use(express.static('images')); // for fetching rant image
-app.use(express.static(__dirname + '/public'));//for landing page
+app.use(express.static('images'));          // for fetching rant image
+app.use(express.static(__dirname + '/public'));     //for landing page
 
 app.get('/',function(req, res){
 	res.sendFile(__dirname + '/public');
-	console.log(__dirname);//for the landing page
 });
 
 app.post('/',function(req, res) {
@@ -77,7 +87,7 @@ app.post('/',function(req, res) {
 //   initializeQuoteDB();
 // });
 
-/* ================================ RUN APP ================================ */
+/* =========================== RUN APP =========================== */
 
 app.listen(PORT, function (){
 	console.log('Server is listening to %d port in %s mode',PORT,app.settings.env);

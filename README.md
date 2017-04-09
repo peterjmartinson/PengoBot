@@ -1,16 +1,35 @@
 # PengoBot
 Slackbot for Chingu Penguins
 
+## Pengo
+(PEN-go) noun
+
+1. Classic Sega arcade game
+2. Infamous German KGB hacker Hans Heinrich Hübner
+3. Your coding buddy on Slack!
+
+## Main Functions
+`/pengo`: Provide a kernel of wisdom
+`/pengo [ID]`: Provide a specific kernel of wisdom
+`/pengo rant`: Provide the *ultimate* kick in the pants
+`/pengo help`: Provide usage instructions
 
 ## Basic File Structure
 ```
 app/
- +- model/
-     `- quoteSchema.js  // define the Quote schema
- +- bot/
-     `- pengo.js        // bot talks to slack
-     `- getQuote.js     // bot talks to database
-node_modules/
+  `- quoteSchema.js
+  `- getCommand.js
+  `- getQuote.js
+  `- initializeQuoteDB.js
+  `- pengo.js
+images/
+  `- pengo.jpg
+  `- rant.png
+models/
+  `- quoteSchema.js
+public/
+  `- index.html
+  `- pengo.jpg
 package.json
-server.js               // run the bot
+server.js
 ```

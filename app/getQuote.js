@@ -4,35 +4,34 @@
  *   getQuote.byID(id, function(err, res));
  *   getQuote.atRandom(function(err, res));
  *
- * Author: Peter Martinson
- * Date:   March 10, 2017
+ * © 2017 Team Pengo
+ *
+ * Authors: Khyati Kulshreshtha,
+ *          Monyett Tanzillo,
+ *          Claudio Gentile,
+ *          Peter Martinson 
 */
 
 
-const mongoose    = require('mongoose');
-const quoteSchema = require('../models/quoteSchema.js');
-
-const Quote = mongoose.model('Quote', quoteSchema);
+const mongoose    = require('mongoose'),
+      quoteSchema = require('../models/quoteSchema.js'),
+      Quote       = mongoose.model('Quote', quoteSchema);
 
 module.exports = {
 
-  // byID:     function(id, callback) {
-  //   Quote.find({ quote_id : id }, function(err, result) {
-  //     if (err) callback(err);
-  //     else     callback(null, result);
-  //   });
-  // },
-
-  byID:     function(id, callback) {
+  byID: function(id, callback) {
     Quote.count({}, function(err, N) {
       if (err) callback(err);
       if ( id > 0 && id <= N ) {
+
         Quote.find({ quote_id : id }, function(err, result) {
           if (err) callback(err);
           else     callback(null, result);
         });
+
       }
       else {
+        // User entered an out-of-range ID
         callback(null,{ bad_number:1, N:N});
       }
     });
@@ -42,13 +41,14 @@ module.exports = {
     Quote.count({}, function(err, N) {
       if (err) callback(err);
       var id = Math.floor(Math.random() * N);
+
       Quote.find({ quote_id : id }, function(err, result) {
         if (err) callback(err);
         else     callback(null, result, id);
       });
+
     });
   }
-
 }
 
 
