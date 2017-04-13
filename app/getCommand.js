@@ -15,12 +15,12 @@
 
 const request = require('request'),
       cheerio = require('cheerio'),
-      baseURL = 'http://man.he.net/man1/';
+      base_url = 'http://man.he.net/man1/';
 
 // get the command text from the URL
 var fetchCommand = function(command, callback) {
-  var mainURL = baseURL + command;
-  request(mainURL, function(error, response, html) {
+  var main_url = base_url + command;
+  request(main_url, function(error, response, html) {
     if (error) callback(error);
     var $ = cheerio.load(html);
     callback(null, $('pre').html());
@@ -31,12 +31,12 @@ module.exports = function(command, callback) {
   fetchCommand(command, function(error, man) {
     if (error) callback(error);
 
-    var commandArray = man.split('\n'),
+    var command_array = man.split('\n'),
         toc          = [],
         sections     = [];
 
     // create TOC numbers
-    commandArray.forEach(function(element, index) {
+    command_array.forEach(function(element, index) {
       if ( /^[A-Z]/.test(element) ) {
         toc.push(index);
       }
@@ -44,24 +44,35 @@ module.exports = function(command, callback) {
 
     // create TOC section labels
     toc.forEach(function(element) {
-      sections.push(commandArray[element]);
+      sections.push(command_array[element]);
     });
 
     function createSection(title) {
-      return commandArray.filter(function(element, index) {
-        var sectionIndex    = toc[sections.indexOf(title.toUpperCase())];
-        var nextSectionIndex = toc[sections.indexOf(title.toUpperCase())+1];
-        if ( index > sectionIndex && index < nextSectionIndex ) {
+      var section_index      = toc[sections.indexOf(title.toUpperCase())],
+          next_section_index = toc[sections.indexOf(title.toUpperCase())+1],
+          long_section_flag  = 0,
+          section;
+      if ( next_section_index - section_index >= 20 ) {
+        next_section_index = section_index + 20;
+        long_section_flag = 1;
+      }
+      section = command_array.filter(function(element, index) {
+        if ( index > section_index && index < next_section_index ) {
           return element;
         }
       }).join('\n');
+      if ( long_section_flag ) {
+        section += '\r\r        ...section clipped! See ' + base_url + command + ' for complete text.';
+      }
+      return section
     }
 
     callback(null, {
-      synopsis    : createSection('synopsis'),
+      syntax      : createSection('synopsis'),
       description : createSection('description'),
       options     : createSection('options'),
-      examples    : createSection('examples')
+      examples    : createSection('examples'),
+      source_href : base_url + command
     });
   });
 }

@@ -25,7 +25,6 @@ const getQuote   = require('./getQuote'),
 const pengo = {
 
   handleCommand: function(request, response) {
-
     if (request.body.token !== process.env.VERIFICATION_TOKEN) {
     return; // if request doesn't have a slack token, abort
     }
@@ -129,32 +128,38 @@ const pengo = {
           request.body.text.substring(5) +
           '\nBut this function is still in development!';
 
-        let data = {
-          "response_type": "ephemeral",
-          "attachments": [
-            {
-              "text": "Whoops!",
-              "color": "good",
-              "footer": footerText
-            }
-          ]
-        }
-        response.send(data);
-        // getCommand(request.body.text.substring(5), function(err, man) {
-        //   if (err) console.error(err);
+        // let data = {
+        //   "response_type": "ephemeral",
+        //   "attachments": [
+        //     {
+        //       "text": "Whoops!",
+        //       "color": "good",
+        //       "footer": footerText
+        //     }
+        //   ]
+        // }
+        // response.send(data);
+        getCommand(request.body.text.substring(5), function(err, man) {
+          if (err) console.error(err);
+          
+          let man_page = 'source: ' + man.source_href;
+          if (man.syntax)      man_page += '\rSYNTAX\r' + man.syntax;
+          if (man.description) man_page += '\rDESCRIPTION\r' + man.description;
+          if (man.options)     man_page += '\rOPTIONS\r' + man.options;
+          if (man.examples)    man_page += '\rEXAMPLES\r' + man.examples;
 
-        //   let data = {
-        //     "response_type": "in_channel", // public to the channel
-        //     "attachments": [
-        //       {
-        //         "text": man.synopsis,
-        //         "color": "good",
-        //         "footer": footerText
-        //       }
-        //     ]
-        //   }
-        //   response.send(data);
-        // });
+          let data = {
+            "response_type": "in_channel", // public to the channel
+            "attachments": [
+              {
+                "text": man_page,
+                "color": "good",
+                "footer": footerText
+              }
+            ]
+          }
+          response.send(data);
+        });
       }
 
 // ================== End Command Line Help
