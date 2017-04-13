@@ -9,10 +9,10 @@ Slackbot for Chingu Penguins
 3. Your coding buddy on Slack!
 
 ## Main Functions
-`/pengo`: Provide a kernel of wisdom
-`/pengo [ID]`: Provide a specific kernel of wisdom
-`/pengo rant`: Provide the *ultimate* kick in the pants
-`/pengo help`: Provide usage instructions
+`/pengo`: Provide a kernel of wisdom  
+`/pengo [ID]`: Provide a specific kernel of wisdom  
+`/pengo rant`: Provide the *ultimate* kick in the pants  
+`/pengo help`: Provide usage instructions  
 
 ## Basic File Structure
 ```
