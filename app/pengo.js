@@ -83,7 +83,9 @@ const pengo = {
           "attachments": [
             {
               "image_url": responseURL,
-              "color": "warning"
+              "color": "warning",
+              "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+              "mrkdwn_in": ["text"]
             }
           ]
         }
@@ -106,7 +108,9 @@ const pengo = {
           "attachments": [
             {
               "text": helpMessage,
-              "color": "#227722"
+              "color": "#227722",
+              "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+              "mrkdwn_in": ["text"]
             }
           ]
         }
@@ -122,11 +126,7 @@ const pengo = {
        *   @@@@ IN DEVELOPMENT!!! @@@@
       */
       else if ( /bash [\w\-\+]+$/mig.test(request.body.text) ) {
-        let footerText =
-          'You are asking for a command!\n' +
-          'The command name is: ' +
-          request.body.text.substring(5) +
-          '\nBut this function is still in development!';
+        let footerText = "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>";
 
         // let data = {
         //   "response_type": "ephemeral",
@@ -159,7 +159,8 @@ const pengo = {
               {
                 "text": man_page,
                 "color": "good",
-                "footer": footerText
+                "footer": footerText,
+                "mrkdwn_in": ["text"]
               }
             ]
           }
