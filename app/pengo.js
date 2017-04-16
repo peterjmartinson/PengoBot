@@ -140,16 +140,21 @@ const pengo = {
         // }
         // response.send(data);
         getCommand(request.body.text.substring(5), function(err, man) {
-          if (err) console.error(err);
-          
-          let man_page = 'source: ' + man.source_href;
-          if (man.syntax)      man_page += '\rSYNTAX\r' + man.syntax;
-          if (man.description) man_page += '\rDESCRIPTION\r' + man.description;
-          if (man.options)     man_page += '\rOPTIONS\r' + man.options;
-          if (man.examples)    man_page += '\rEXAMPLES\r' + man.examples;
+          let man_page = '';
+          if (err) {
+            console.error(err);
+            man_page = err;
+          }
+          else {
+            man_page = 'source: ' + man.source_href;
+            if (man.syntax)      man_page += '\rSYNTAX\r' + man.syntax;
+            if (man.description) man_page += '\rDESCRIPTION\r' + man.description;
+            if (man.options)     man_page += '\rOPTIONS\r' + man.options;
+            if (man.examples)    man_page += '\rEXAMPLES\r' + man.examples;
+          }
 
           let data = {
-            "response_type": "in_channel", // public to the channel
+            "response_type": "ephemeral",
             "attachments": [
               {
                 "text": man_page,
