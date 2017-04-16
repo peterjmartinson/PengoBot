@@ -1,12 +1,19 @@
+        ____                         
+       / __ \___  ____  ____ _____   
+      / /_/ / _ \/ __ \/ __ `/ __ \  
+     / ____/  __/ / / / /_/ / /_/ /  
+    /_/    \___/_/ /_/\__, /\____/   
+                     /____/          
+
 # PengoBot
 Slackbot for Chingu Penguins
 
 ## Pengo
 (PEN-go) noun
 
-1. Classic Sega arcade game
-2. Infamous German KGB hacker Hans Heinrich Hübner
-3. Your coding buddy on Slack!
+1. Classic Sega arcade game  
+2. Infamous German KGB hacker Hans Heinrich Hübner  
+3. Your coding buddy on Slack!  
 
 ## Main Functions
 `/pengo`: Provide a kernel of wisdom  

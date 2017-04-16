@@ -17,14 +17,6 @@
 
 'use strict';
 
-// /pengo - respond with random tip text from database
-// /pengo [ID] - respond with tip text from database specified by ID
-// /pengo rant - resond with special JPEG
-// /pengo help - responds with helpful tips on using /pengo commands
-// TODO
-// /pengo bash [command] - respond with reference from http://man.he.net
-
-
 // one function to handle all slack commands (subject to change if needed)
 
 const getQuote   = require('./getQuote'),
@@ -33,7 +25,6 @@ const getQuote   = require('./getQuote'),
 const pengo = {
 
   handleCommand: function(request, response) {
-
     if (request.body.token !== process.env.VERIFICATION_TOKEN) {
     return; // if request doesn't have a slack token, abort
     }
@@ -92,7 +83,9 @@ const pengo = {
           "attachments": [
             {
               "image_url": responseURL,
-              "color": "warning"
+              "color": "warning",
+              "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+              "mrkdwn_in": ["text"]
             }
           ]
         }
@@ -115,7 +108,9 @@ const pengo = {
           "attachments": [
             {
               "text": helpMessage,
-              "color": "#227722"
+              "color": "#227722",
+              "footer": "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>",
+              "mrkdwn_in": ["text"]
             }
           ]
         }
@@ -131,38 +126,46 @@ const pengo = {
        *   @@@@ IN DEVELOPMENT!!! @@@@
       */
       else if ( /bash [\w\-\+]+$/mig.test(request.body.text) ) {
-        let footerText =
-          'You are asking for a command!\n' +
-          'The command name is: ' +
-          request.body.text.substring(5) +
-          '\nBut this function is still in development!';
+        let footerText = "<https://pengo.herokuapp.com | Get Pengo>" + " | "  + "<https://github.com/peterjmartinson/PengoBot | GitHub>";
 
-        let data = {
-          "response_type": "ephemeral",
-          "attachments": [
-            {
-              "text": "Whoops!",
-              "color": "good",
-              "footer": footerText
-            }
-          ]
-        }
-        response.send(data);
-        // getCommand(request.body.text.substring(5), function(err, man) {
-        //   if (err) console.error(err);
+        // let data = {
+        //   "response_type": "ephemeral",
+        //   "attachments": [
+        //     {
+        //       "text": "Whoops!",
+        //       "color": "good",
+        //       "footer": footerText
+        //     }
+        //   ]
+        // }
+        // response.send(data);
+        getCommand(request.body.text.substring(5), function(err, man) {
+          let man_page = '';
+          if (err) {
+            console.error(err);
+            man_page = err;
+          }
+          else {
+            man_page = 'source: ' + man.source_href;
+            if (man.syntax)      man_page += '\rSYNTAX\r' + man.syntax;
+            if (man.description) man_page += '\rDESCRIPTION\r' + man.description;
+            if (man.options)     man_page += '\rOPTIONS\r' + man.options;
+            if (man.examples)    man_page += '\rEXAMPLES\r' + man.examples;
+          }
 
-        //   let data = {
-        //     "response_type": "in_channel", // public to the channel
-        //     "attachments": [
-        //       {
-        //         "text": man.synopsis,
-        //         "color": "good",
-        //         "footer": footerText
-        //       }
-        //     ]
-        //   }
-        //   response.send(data);
-        // });
+          let data = {
+            "response_type": "ephemeral",
+            "attachments": [
+              {
+                "text": man_page,
+                "color": "good",
+                "footer": footerText,
+                "mrkdwn_in": ["text"]
+              }
+            ]
+          }
+          response.send(data);
+        });
       }
 
 // ================== End Command Line Help
