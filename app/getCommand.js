@@ -65,7 +65,7 @@ module.exports = function(command, callback) {
           }
         }).join('\n');
         if ( long_section_flag ) {
-          section += '\r\r        ...section clipped! See ' + base_url + command + ' for complete text.';
+          section += '\r\r        _...section clipped! See ' + base_url + command + ' for complete text._';
         }
         return section
       }
