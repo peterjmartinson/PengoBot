@@ -15,7 +15,8 @@
 
 const request = require('request'),
       cheerio = require('cheerio'),
-      base_url = 'http://man.he.net/man1/';
+      striptags = require('striptags'),
+      base_url  = 'http://man.he.net/man1/';
 
 // get the command text from the URL
 var fetchCommand = function(command, callback) {
@@ -67,7 +68,7 @@ module.exports = function(command, callback) {
         if ( long_section_flag ) {
           section += '\r\r        _...section clipped! See ' + base_url + command + ' for complete text._';
         }
-        return section
+        return striptags(section.replace(/&apos;/g, "'"));
       }
 
       callback(null, {
