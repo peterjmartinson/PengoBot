@@ -101,7 +101,8 @@ const pengo = {
         let helpMessage =
         '"/pengo" get a random quote from the Pragmatic Programmer \n' +
         '"/pengo [ID]" you can specifiy a quote by ID number \n' +
-        '"/pengo rant" get the most important piece of advice';
+        '"/pengo rant" get the most important piece of advice' +
+        '"/pengo bash <command>" get the syntax of a Linux command';
 
         let data = {
           "response_type": "ephemeral",
