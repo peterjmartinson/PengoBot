@@ -77,9 +77,7 @@ app.get('/',function(req, res){
 	res.sendFile(__dirname + '/public');
 });
 
-app.post('/',function(req, res) {
-  pengo.handleCommand(req, res);
-});
+app.post('/', pengo.handleCommand);
 
 // UNCOMMENT TO REPOPULATE QUOTES DATABASE
 // app.get('/populate', function(req, res) {
